@@ -15,6 +15,13 @@ describe("Brand components", () => {
     );
   });
 
+  it("Logo onDark renders only the light-on-dark version", () => {
+    render(<Logo onDark />);
+    const images = screen.getAllByAltText("Copper State Labs");
+    expect(images).toHaveLength(1);
+    expect(images[0].getAttribute("src")).toMatch(/logo-dark\.png/);
+  });
+
   it("SiteHeader links the logo home and has a theme toggle", () => {
     render(<SiteHeader />);
     expect(
@@ -42,5 +49,13 @@ describe("Brand components", () => {
     expect(screen.getByRole("contentinfo")).toHaveTextContent(
       "Fictional — for educational use.",
     );
+  });
+
+  it("SiteFooter has its test ID and the light-on-dark logo", () => {
+    render(<SiteFooter />);
+    expect(screen.getByTestId("site-footer")).toBeInTheDocument();
+    const images = screen.getAllByAltText("Copper State Labs");
+    expect(images).toHaveLength(1);
+    expect(images[0].getAttribute("src")).toMatch(/logo-dark\.png/);
   });
 });
